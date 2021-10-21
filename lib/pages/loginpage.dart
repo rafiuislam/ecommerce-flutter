@@ -14,14 +14,16 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   moveToHome(BuildContext context) async {
-    setState(() {
-      changeButton = true;
-    });
-    await Future.delayed(Duration(seconds: 1));
-    await Navigator.pushNamed(context, MyRoutes.homeRoute);
-    setState(() {
-      changeButton = false;
-    });
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(Duration(seconds: 1));
+      await Navigator.pushNamed(context, MyRoutes.homeRoute);
+      setState(() {
+        changeButton = false;
+      });
+    }
   }
 
   @override
@@ -60,6 +62,12 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Enter UserName",
                           labelText: "Username",
                         ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Username cannot be empty";
+                          }
+                          return null;
+                        },
                         onChanged: (value) => {name = value, setState(() {})},
                       ),
                       TextFormField(
@@ -68,6 +76,14 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Enter Password",
                           labelText: "Password",
                         ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Password cannot be empty";
+                          } else if (value.length < 5) {
+                            return "Password must be at least 5";
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 20,
