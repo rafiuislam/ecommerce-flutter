@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_types_as_parameter_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,13 +25,17 @@ class _HomePageState extends State<HomePage> {
     final catalogJson =
         await rootBundle.loadString("assets/files/catalog.json");
     final decodedData = jsonDecode(catalogJson);
-    var prouctsData = decodedData["products"];
-    print(prouctsData);
+    var productsData = decodedData["products"];
+    CatalogModel.items = List.from(productsData)
+        .map<Item>((item) => Item.fromMap(item))
+        .cast<Item>()
+        .toList();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final dummy = List.generate(20, (index) => CatalogModel.items[0]);
+    // final dummy = List.generate(20, (index) => CatalogModel.items[0]);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -40,10 +46,10 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView.builder(
-            itemCount: dummy.length,
+            itemCount: CatalogModel.items.length,
             itemBuilder: (context, index) {
               return ItemWidget(
-                item: dummy[index],
+                item: CatalogModel.items[index],
               );
             }),
       ),
@@ -51,3 +57,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+class item {}
