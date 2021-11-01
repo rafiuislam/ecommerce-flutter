@@ -3,7 +3,6 @@ import 'package:flutter_app_1/pages/homepage.dart';
 import 'package:flutter_app_1/pages/loginpage.dart';
 import 'package:flutter_app_1/utils/routes.dart';
 import 'package:flutter_app_1/widgets/themes.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'pages/homepage.dart';
 
 void main() {
@@ -21,9 +20,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: MyRoutes.homeRoute,
       routes: {
-        "/": (context) => LoginPage(),
+        "/": (context) => const LoginPage(),
         MyRoutes.homeRoute: (context) => HomePage(),
-        MyRoutes.loginRoute: (context) => LoginPage(),
+        MyRoutes.loginRoute: (context) => const LoginPage(),
       },
     );
   }
