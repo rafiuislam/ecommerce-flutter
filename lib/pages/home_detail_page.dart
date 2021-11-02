@@ -10,10 +10,12 @@ class HomeDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+        ),
         // backgroundColor: MyTheme.creamColor,
         bottomNavigationBar: Container(
-          color: Colors.white,
+          color: MyTheme.creamColor,
           child: ButtonBar(
             alignment: MainAxisAlignment.spaceBetween,
             buttonPadding: const EdgeInsets.all(0.0),
@@ -35,7 +37,9 @@ class HomeDetailPage extends StatelessWidget {
             children: [
               Hero(
                 tag: Key(catalog.id.toString()),
-                child: Image.network(catalog.image),
+                child: Image.network(
+                  catalog.image,
+                ),
               ).h32(context),
               Expanded(
                   child: VxArc(
@@ -43,7 +47,7 @@ class HomeDetailPage extends StatelessWidget {
                 arcType: VxArcType.CONVEY,
                 edge: VxEdge.TOP,
                 child: Container(
-                  color: Colors.white,
+                  color: MyTheme.creamColor,
                   width: context.screenWidth,
                   child: Column(
                     children: [
@@ -52,16 +56,20 @@ class HomeDetailPage extends StatelessWidget {
                           .bold
                           .make(),
                       catalog.desc.text
-                          .color(MyTheme.darkBluishColor.withOpacity(.7))
+                          .color(MyTheme.darkBluishColor.withOpacity(.8))
                           .xl
                           .make(),
                       10.heightBox,
+                      "Jelly sweet roll jelly beans biscuit pie macaroon chocolate donut. Carrot cake caramels pie sweet apple pie tiramisu carrot cake."
+                          .text
+                          .make()
+                          .p8()
                     ],
                   ).py64(),
                 ),
               )),
             ],
-          ),
+          ).backgroundColor(Colors.white),
         ));
   }
 }

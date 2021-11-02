@@ -53,7 +53,7 @@ class CatalogItem extends StatelessWidget {
               children: [
                 catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
                 catalog.desc.text
-                    .color(MyTheme.darkBluishColor.withOpacity(.7))
+                    .color(MyTheme.darkBluishColor.withOpacity(.8))
                     .make(),
                 // 1.heightBox,
                 ButtonBar(
