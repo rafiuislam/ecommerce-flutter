@@ -1,16 +1,16 @@
-// ignore_for_file: avoid_types_as_parameter_names
-
+// ignore_for_file: avoid_types_as_parameter_name
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_1/models/catalog.dart';
+import 'package:flutter_app_1/widgets/home_widgets/catalog_header.dart';
+import 'package:flutter_app_1/widgets/home_widgets/catalog_list.dart';
 import 'package:flutter_app_1/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'home_widgets/catalog_header.dart';
-import 'home_widgets/catalog_list.dart';
-
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 CatalogHeader(),
                 if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-                  CatalogList().expand()
+                  CatalogList().py16().expand()
                 else
                   CircularProgressIndicator().centered().expand(),
               ],

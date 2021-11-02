@@ -4,7 +4,6 @@ import 'package:flutter_app_1/pages/home_detail_page.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app_1/widgets/themes.dart';
-
 import 'catalog_image.dart';
 
 class CatalogList extends StatelessWidget {
@@ -41,38 +40,42 @@ class CatalogItem extends StatelessWidget {
     return VxBox(
       child: Row(
         children: [
-          CatalogImage(
-            image: catalog.image,
+          Hero(
+            tag: Key(catalog.id.toString()),
+            child: CatalogImage(
+              image: catalog.image,
+            ),
           ),
           Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
-              catalog.desc.text
-                  .color(MyTheme.darkBluishColor.withOpacity(.5))
-                  .make(),
-              5.heightBox,
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                buttonPadding: EdgeInsets.zero,
-                children: [
-                  "\$ ${catalog.price}".text.bold.xl.make(),
-                  ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              MyTheme.darkBluishColor),
-                          shape:
-                              MaterialStateProperty.all(const StadiumBorder())),
-                      child: "Buy".text.make())
-                ],
-              ).pOnly(right: 8)
-            ],
-          ))
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                catalog.name.text.lg.color(MyTheme.darkBluishColor).bold.make(),
+                catalog.desc.text
+                    .color(MyTheme.darkBluishColor.withOpacity(.7))
+                    .make(),
+                // 1.heightBox,
+                ButtonBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  buttonPadding: const EdgeInsets.all(0.0),
+                  children: [
+                    "\$ ${catalog.price}".text.bold.xl.make(),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                MyTheme.darkBluishColor),
+                            shape: MaterialStateProperty.all(
+                                const StadiumBorder())),
+                        child: "Buy".text.make())
+                  ],
+                ).pOnly(right: 8)
+              ],
+            ),
+          ),
         ],
       ),
-    ).white.rounded.square(100).make().py16();
+    ).white.rounded.square(150).make().py16();
   }
 }
