@@ -1,6 +1,5 @@
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app_1/widgets/themes.dart';
 
 class CatalogImage extends StatelessWidget {
   final String image;
@@ -12,8 +11,9 @@ class CatalogImage extends StatelessWidget {
         .box
         .p8
         .rounded
-        .color(MyTheme.creamColor)
+        .color(context.canvasColor)
         .make()
-        .p16();
+        .p16()
+        .w40(context);
   }
 }
