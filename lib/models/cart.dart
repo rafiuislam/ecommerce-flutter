@@ -1,6 +1,14 @@
 import 'package:flutter_app_1/models/catalog.dart';
 
 class CartModel {
+  //singleones
+  static final cartModel = CartModel._internal();
+
+  CartModel._internal();
+
+  factory CartModel() => cartModel;
+  //singleones//
+
   late CatalogModel _catalog;
 
   final List<int> _itemIds = [];
