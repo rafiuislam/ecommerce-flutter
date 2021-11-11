@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app_1/models/cart.dart';
-import 'package:flutter_app_1/widgets/themes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CartPage extends StatelessWidget {
@@ -66,36 +65,26 @@ class _CartTotal extends StatelessWidget {
   }
 }
 
-class _CartList extends StatefulWidget {
-  @override
-  __CartListState createState() => __CartListState();
-}
-
-class __CartListState extends State<_CartList> {
+class _CartList extends StatelessWidget {
   final _cart = CartModel();
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _cart.items.length,
-      itemBuilder: (context, index) => ListTile(
-        title: _cart.items[index].name.text.make(),
-        subtitle: "Subtitle".text.make(),
-        leading: const Icon(Icons.done),
-        trailing: IconButton(
-          icon: const Icon(Icons.remove_circle_outline),
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: "not supported yet".text.make(),
-                // action: SnackBarAction(
-                //   label: "Undo".text.make(),
-                //   onPressed: () {},
-                // ),
+    return _cart.items.isEmpty
+        ? "the cart is empty".text.xl3.makeCentered()
+        : ListView.builder(
+            itemCount: _cart.items.length,
+            itemBuilder: (context, index) => ListTile(
+              title: _cart.items[index].name.text.make(),
+              subtitle: "Subtitle".text.make(),
+              leading: const Icon(Icons.done),
+              trailing: IconButton(
+                icon: const Icon(Icons.remove_circle_outline),
+                onPressed: () {
+                  _cart.remove(_cart.items[index]);
+                  // setState(() {});
+                },
               ),
-            );
-          },
-        ),
-      ),
-    );
+            ),
+          );
   }
 }
