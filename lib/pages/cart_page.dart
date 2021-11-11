@@ -38,13 +38,11 @@ class _CartTotal extends StatelessWidget {
         children: [
           VxBuilder(
             mutations: const {RemoveMutation},
-            builder: (context, _, status) {
-              return "\$ ${_cart.totalPrice}"
-                  .text
-                  .xl4
-                  .color(context.theme.accentColor)
-                  .make();
-            },
+            builder: (context, _, status) => "\$ ${_cart.totalPrice}"
+                .text
+                .xl4
+                .color(context.theme.accentColor)
+                .make(),
           ),
           30.widthBox,
           ElevatedButton(
