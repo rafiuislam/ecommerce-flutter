@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_1/core/store.dart';
 import 'package:flutter_app_1/models/catalog.dart';
 import 'package:flutter_app_1/pages/home_detail_page.dart';
 import 'package:flutter_app_1/widgets/home_widgets/add_to_cart.dart';
@@ -11,20 +12,28 @@ class CatalogList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: CatalogModel.items.length,
-      itemBuilder: (context, index) {
-        final catalog = CatalogModel.items[index];
-        return InkWell(
-            onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeDetailPage(catalog: catalog),
-                  ),
-                ),
-            child: CatalogItem(catalog: catalog));
-      },
+    final MyStore store = VxState.store;
+    return Scrollbar(
+      thickness: 3,
+      radius: const Radius.circular(10),
+      child: VxBuilder(
+        mutations: {SearchMutation},
+        builder: (context, _, status) => ListView.builder(
+          shrinkWrap: true,
+          itemCount: store.items.length,
+          itemBuilder: (context, index) {
+            final catalog = store.items[index];
+            return InkWell(
+                onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeDetailPage(catalog: catalog),
+                      ),
+                    ),
+                child: CatalogItem(catalog: catalog));
+          },
+        ),
+      ),
     );
   }
 }

@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final int days = 30;
+  // final url = "https://api.jsonbin.io/b/604dbddb683e7e079c4eefd3";
 
   @override
   void initState() {
@@ -28,15 +28,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     final catalogJson =
         await rootBundle.loadString("assets/files/catalog.json");
+
+    // final response = await http.get(Uri.parse(url));
+    // final catalogJson = response.body;
     final decodedData = jsonDecode(catalogJson);
     var productsData = decodedData["products"];
     CatalogModel.items = List.from(productsData)
         .map<Item>((item) => Item.fromMap(item))
         .cast<Item>()
         .toList();
+    (VxState.store as MyStore).items = CatalogModel.items;
     setState(() {});
   }
 
@@ -52,7 +56,7 @@ class _HomePageState extends State<HomePage> {
             child: const Icon(CupertinoIcons.cart, color: Colors.white),
             backgroundColor: context.theme.buttonColor,
           ).badge(
-              color: Vx.red500,
+              color: Vx.white,
               size: 20,
               count: _cart.items.length,
               textStyle: const TextStyle(
@@ -64,11 +68,18 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CatalogHeader(),
+                const CatalogHeader(),
+                CupertinoSearchTextField(
+                  style: context.textTheme.bodyText1,
+                  borderRadius: BorderRadius.circular(20),
+                  onChanged: (value) {
+                    SearchMutation(value);
+                  },
+                )..py12(),
                 if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-                  CatalogList().py16().expand()
+                  const CatalogList().py16().expand()
                 else
-                  CircularProgressIndicator().centered().expand(),
+                  const CircularProgressIndicator().centered().expand(),
               ],
             ),
           ),

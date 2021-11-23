@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter_app_1/core/store.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CatalogModel {
   // //singleones
@@ -103,5 +105,21 @@ class Item {
         price.hashCode ^
         color.hashCode ^
         image.hashCode;
+  }
+}
+
+class SearchMutation extends VxMutation<MyStore> {
+  final String query;
+
+  SearchMutation(this.query);
+  @override
+  perform() {
+    if (query.length >= 1) {
+      store?.items = CatalogModel.items
+          .where((element) => element.name.toLowerCase().contains(query))
+          .toList();
+    } else {
+      store?.items = CatalogModel.items;
+    }
   }
 }
